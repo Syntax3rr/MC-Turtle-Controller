@@ -1,0 +1,67 @@
+
+html, body {
+    margin:0;
+    padding:0;
+    overflow: hidden;
+}
+
+.titlebar {
+    width: 100%;
+    height: 30px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+    background-color: #444;
+}
+
+.titlebar p {
+    color:#ddd;
+    font-size: 12px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    margin-top:9px;
+}
+
+.titlebar-button {
+    height:30px;
+    width:45px;
+    position: absolute;
+    top: 0px;
+    -webkit-app-region: no-drag;
+    background-color: #444;
+    color:#ddd;
+    font-size: 18px;
+    border: none;    
+}
+
+.titlebar-button:hover {
+    background-color: #555;
+}
+
+.titlebar-button:active {
+    filter:brightness(120%);
+}
+
+.titlebar-button:focus {
+    outline: none;
+}
+
+#close {
+    right: 0px;
+}
+
+#close:hover {
+    background-color: #E22;
+}
+
+#maximize {
+    right: 45px;
+}
+
+#minimize {
+    right: 90px;
+    padding-bottom:2px;
+}
+
