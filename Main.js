@@ -1,7 +1,9 @@
 const WSServer = require('./WebSocketServer')
 const UserInterface = require('./UserInterface');
+const EventEmitter = require('events');
 
 class Main {
+    eventBus = new EventEmitter();
     turtles = [];
     world = [];
     gui;

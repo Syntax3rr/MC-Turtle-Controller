@@ -57,11 +57,12 @@ const boxGeom = new THREE.BoxGeometry()
 const standMat = new THREE.MeshPhongMaterial({color: 0x666666})
 
 class Cube extends THREE.Mesh {
-	constructor(x, y, z) {
+	constructor(x, y, z, data) {
 		super(boxGeom, standMat);
 		this.position.x = x;
 		this.position.y = y;
 		this.position.z = z;
+		this.blockData = data;
 		this.castShadow = true;
 		this.receiveShadow = true;
 		scene.add(this);
@@ -69,15 +70,55 @@ class Cube extends THREE.Mesh {
 }
 
 var world = [];
-function getWorld() {
-	world.forEach((block) => block.dispose());
+var turtles = [];
+async function getWorld() {
+	for (let block of world) {
+		block.material.dispose();
+		block.geometry.dispose();
+		scene.remove(block);
+	}
 	world = [];
-	window.ipc.send("dataRequest", "worldData");
-	window.ipc.receive("worldData", (data) => {
+	window.ipc.send('dataRequest', "worldData");
+	window.ipc.addListener('worldData', async (data) => {
+		console.log("getWorld: ");
+		console.log(data);
+
+		data.forEach((block) => {
+			console.log(block.data)
+			if(block.data == false) {
+				world.push({position: block.position, blockData: false });
+			} else {
+				world.push(new Cube(block.position.x, block.position.y, block.position.z, block.data));
+			}
+		});
+	});
+}
+
+async function getTurtles() {
+	window.ipc.send('dataRequest', "turtleData");
+	window.ipc.addListener('turtleData', async (data) => {
+		for (let turtle of turtles) {
+			turtle.material.dispose();
+			turtle.geometry.dispose();
+			scene.remove(turtle);
+		}
+		turtles = [];
+		console.log("getTurtles: ");
 		console.log(data)
-		data.forEach((block) => world.push(new Cube(block.position.x, block.position.y, block.position.z)));
-	})
-	getTurtles();
+		for(let obj of data) {
+			turtles.push(await loadData(obj));
+		}
+		if(turtles.length > 0) turtles[0].selected = true;
+		changeSelection()
+	});
+	window.ipc.addListener('turtleUpdate', async (data) => {
+		let findTurtle = turtles.find(turtle => turtle.turtleID == data.id)
+		console.log(findTurtle);
+		if(findTurtle != undefined) {
+			findTurtle.rotation.y = (4 - data.dir) * (Math.PI / 2);
+			findTurtle.position.set(data.position.x, data.position.y, data.position.z);
+		}
+	});
 }
 
 const loader = new GLTFLoader();
@@ -87,45 +128,34 @@ async function loadData(turtleData) {
 		loader.load('Assets/Turtle.gltf', resolve)
 	})
 
-	let node = gltf.scene.getObjectByName('Turtle')
-	node.selected = node.selected ? true : false;
-	node.castShadow = true;
-	node.receiveShadow = true;
-	node.position.set(turtleData.position.x, turtleData.position.y, turtleData.position.z);
-	node.rotation.y = turtleData.dir * (Math.PI / 2);
-	node.turtleCamera = new THREE.CubeCamera(0.001, 20, new THREE.WebGLCubeRenderTarget(512)); 
-	node.turtleCamera.position.set(turtleData.position.x, turtleData.position.y, turtleData.position.z)
-	node.material.envMap = node.turtleCamera.renderTarget.texture;
-	scene.add(node);
-	scene.add(node.turtleCamera);
-	return node;
-}
-
-var turtles = [];
-async function getTurtles() {
-	turtles.forEach((turtle) => turtle.dispose());
-	turtles = [];
-	window.ipc.send("dataRequest", "turtleData");
-	window.ipc.receive("turtleData", async (data) => {
-		console.log(data)
-		for(let obj of data) {
-			turtles.push(await loadData(obj));
-			if(obj == data[0]) turtles[0].selected = true;
-		}
-		changeSelection();
-		animate();
-	});
+	let turtle = gltf.scene.getObjectByName('Turtle')
+	turtle.turtleID = turtleData.id;
+	console.log("loadData: " + turtleData.id + " " + turtle.turtleID);
+	turtle.selected = turtle.selected ? true : false;
+	turtle.castShadow = true;
+	turtle.receiveShadow = true;
+	turtle.position.set(turtleData.position.x, turtleData.position.y, turtleData.position.z);
+	turtle.rotation.y = (4 - turtleData.dir) * (Math.PI / 2);
+	turtle.turtleCamera = new THREE.CubeCamera(0.001, 20, new THREE.WebGLCubeRenderTarget(512)); 
+	turtle.turtleCamera.position.set(turtleData.position.x, turtleData.position.y, turtleData.position.z)
+	turtle.material.envMap = turtle.turtleCamera.renderTarget.texture;
+	scene.add(turtle);
+	scene.add(turtle.turtleCamera);
+	return turtle;
 }
 
 async function changeSelection() {
-	turtles.forEach((turt) => {
-		if(turt.selected == true) {
-			camera.position.set(turt.position.x, turt.position.y, turt.position.z + 5);
-			controls.target.set(turt.position.x, turt.position.y, turt.position.z);
+	console.log(turtles.length)
+	turtles.forEach((turtle) => {
+		if(turtle.selected == true) {
+			camera.position.set(turtle.position.x + 3, turtle.position.y + 2, turtle.position.z + 3);
+			camera.lookAt(turtle.position.x, turtle.position.y, turtle.position.z);
+			controls.target.set(turtle.position.x, turtle.position.y, turtle.position.z);
 		} else {
-			turt.selected = false;
+			turtle.selected = false;
 		}
 	})
+	return;
 }
 
 
@@ -138,13 +168,17 @@ function animate() {
 	light.target.position.set(controls.target.x, controls.target.y, controls.target.z);
 	lightHelp.update();
 
-	turtles.forEach((turt) => {
-		//turt.visible = false;
-		turt.turtleCamera.update(renderer, scene);
-		//turt.visible = true;
+	turtles.forEach((turtle) => {
+		turtle.visible = false;
+		turtle.turtleCamera.update(renderer, scene);
+		turtle.visible = true;
 	})
 
 	renderer.render(scene, camera);
 }
 
 getWorld();
+getTurtles();
+animate();
+
+window.ipc.receive()

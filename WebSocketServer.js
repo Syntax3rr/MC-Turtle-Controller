@@ -10,15 +10,26 @@ class Server {
         this.wss = new WebSocket.Server({port: portNo});
         this.#webSocketHandler();
         console.log("Server Initialized On Port: " + portNo);
-        this.pinger = setInterval((main) => {
-            console.log("pinging")
-            for(turtle in main.turtles) {
+        this.pinger = setInterval(() => {
+            if(this.mainClass.turtles.length == 0) return;   
+            console.log("pinging turtles...");
+            this.mainClass.turtles.forEach( (turtle) => {
                 turtle.connected = false;
-                turtle.websocket.send("ping");
-                setTimeout((turtle) => {if(turtle.connected == false) turtle.websocket.terminate()}, 1000);
-            }
-        }, 5000)
-        console.log(this.pinger)
+                turtle.cmdQueue.unshift("ping");
+                turtle.eventBus.emit('newCmd')
+            });
+            setTimeout(() => {
+                for(let i = 0; i < this.mainClass.turtles.length; i++) {
+                    if(this.mainClass.turtles[i].connected == false) {
+                        console.log("Disconnected from turtle " + i);
+                        this.mainClass.turtles[i].websocket.terminate();
+                        this.mainClass.turtles.splice(i, 1);
+                        i--;
+                        this.mainClass.eventBus.emit('turtleListUpdate');
+                    }
+                }
+            }, 5000);
+        }, 10000);      
     }
 
     async #webSocketHandler() {

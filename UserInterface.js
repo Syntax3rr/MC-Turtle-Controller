@@ -58,15 +58,33 @@ class GUI {
                     break;
             }
         })
+
+        let superThis = this;
+        function sendTurtleList() {
+            let turtleData = [];
+            superThis.mainClass.turtles.forEach((turtle) => { turtleData.push({ id: turtle.id, position: turtle.position, dir: turtle.heading }) });
+            superThis.win.send('turtleData', turtleData);
+        }
+
+        function sendWorldData() {
+            superThis.win.send('worldData', superThis.mainClass.world);
+        }
+
         ipcMain.on('dataRequest', (request, requestType) => {
             switch(requestType) {
                 case 'turtleData':
-                    let turtleData = [];
-                    this.mainClass.turtles.forEach((turtle) => { turtleData.push({ position: turtle.position, dir: turtle.heading }) });
-                    request.reply('turtleData', turtleData);
+                    sendTurtleList(request);
                 case 'worldData':
-                    request.reply('worldData', this.mainClass.world);
+                    sendWorldData(request);
             }
+        })
+
+        this.mainClass.eventBus.on('turtleListUpdate', () => {sendTurtleList()});
+
+        this.mainClass.eventBus.on('worldDataUpdate', () => {sendWorldData()});
+
+        this.mainClass.eventBus.on('turtleDataUpdate', (turtle) => {
+            this.win.send('turtleUpdate', { id: turtle.id, position: turtle.position, dir: turtle.heading});
         })
     }
 }
