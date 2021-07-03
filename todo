@@ -1,12 +1,8 @@
 Server Side:
 - GUI
-    - Movement Controls
+    - Turtle Controls
     - World Visualization
 
-- Turtle id
-- Turtle Position Information
-
 Turtle Side:
-- Command Interpertation
-- Response
-- 
+- Test Arbitrary Command Interpertation
+- Direction testing
