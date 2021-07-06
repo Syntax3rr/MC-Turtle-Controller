@@ -6,13 +6,81 @@
         <link rel="stylesheet" href="GUInterface.css"></link>
     </head>
     <body style="background-color:#333;">
-        <div class="titlebar">
+        <div id="titlebar">
             <p id="title">TurtleControl</p>
             <button class="titlebar-button" id="minimize">&#8211;</button>
             <button class="titlebar-button" id="maximize">&#x25FB;</button>
             <button class="titlebar-button" id="close">&#x2a09;</button>
             <script type="text/javascript" src="GUIWindow.js"></script>
         </div> 
-        <script type="module" src="GUIRenderer.js"></script>
+        <div id="main-body">
+            <script type="module" src="GUIRenderer.js"></script>
+            <button class="menu-btn" id="inv-btn"></button>
+            <!--Turtle Menu + Switching-->
+            <div id="turtleDisplay">
+                <button class="action-btn" id="prev-turtle"></button>
+                <button class="action-btn" id="next-turtle"></button>
+            </div>
+            <!--Inventory-->
+            <div class="menu-div" id="inventory">
+                <!--Inventory Slots-->
+                <div id="inv-slots">
+                    <button id="0"></button>
+                    <button id="1"></button>
+                    <button id="2"></button>
+                    <button id="3"></button>
+                    <button id="4"></button>
+                    <button id="5"></button>
+                    <button id="6"></button>
+                    <button id="7"></button>
+                    <button id="8"></button>
+                </div>
+                <!--Inventory Action Menu-->
+                <div class="menu-div" id="inv-action-menu">
+                    <!--Drop-->
+                    <button class="menu-btn" id="drop-btn"></button>    
+                    <div class="menu-div" id="drop-menu">
+                        <button class="left-action-btn" id="drop-less"></button>
+                        <button class="right-action-btn" id="drop-more"></button>
+                        <button class="up-action-btn" id="drop-up"></button>
+                        <button class="down-action-btn" id="drop-down"></button>
+                        <button class="fwd-action-btn" id="drop-fwd"></button>
+                    </div>
+                    <!--Suck-->
+                    <button class="menu-btn" id="suck-btn"></button>    
+                    <div class="menu-div" id="suck-menu">
+                        <button class="left-action-btn" id="suck-less"></button>
+                        <button class="right-action-btn" id="suck-more"></button>
+                        <button class="up-action-btn" id="suck-up"></button>
+                        <button class="down-action-btn" id="suck-down"></button>
+                        <button class="fwd-action-btn" id="suck-fwd"></button>
+                    </div>
+                    <!--Equip-->
+                    <button class="left-action-btn" id="equip-left"></button>
+                    <button class="right-action-btn" id="equip-right"></button>
+                    <!--Craft-->
+                    <button class="action-btn" id="craft-btn"></button>
+                </div>
+            </div> 
+            <!--Movement Buttons-->
+            <button id="move-up"></button>
+            <button id="move-down"></button>
+            <button id="move-fwd"></button>
+            <button id="move-back"></button>
+            <button id="turn-left"></button>
+            <button id="turn-right"></button>
+            <!--General Action Menu-->
+            <button class="menu-btn" id="ctrls-menu-btn"></button>
+            <div class="menu-div" id="ctrls-menu">
+                <!--Action Buttons-->
+                <button class="up-action-btn" id="attk-up"></button>
+                <button class="down-action-btn" id="attk-down"></button>
+                <button class="fwd-action-btn" id="attk-fwd"></button>
+                <button class="up-action-btn" id="mine-up"></button>
+                <button class="down-action-btn" id="mine-down"></button>
+                <button class="fwd-action-btn" id="mine-fwd"></button>
+                <button class="action-btn" id="re-inspect"></button>
+            </div>
+        </div>
     </body>
 </html>

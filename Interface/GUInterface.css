@@ -1,11 +1,10 @@
-
 html, body {
     margin:0;
     padding:0;
     overflow: hidden;
 }
 
-.titlebar {
+#titlebar {
     width: 100%;
     height: 30px;
     position: fixed;
@@ -16,7 +15,7 @@ html, body {
     background-color: #444;
 }
 
-.titlebar p {
+#titlebar p {
     color:#ddd;
     font-size: 12px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
