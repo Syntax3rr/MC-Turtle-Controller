@@ -2,7 +2,10 @@ Server Side:
 - GUI
     - Turtle Controls
     - World Visualization
+    - Turtle Disconnect Status & Displaying it
+    - Preserving turtles and blocks
 
 Turtle Side:
+    - Preserving turtle data even when off
     - Test Arbitrary Command Interpertation
     - Direction testing
