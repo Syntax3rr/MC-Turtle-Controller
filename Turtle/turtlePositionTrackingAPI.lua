@@ -1,30 +1,44 @@
 --The Position Tracking API is 
 --Made by Syntax3rr
 
-initialized = false
-position = nil
-heading = 0 --0 (North, -z), 1 (West, -x), 2 (South +z), 3 (East, +x)
+local initialized = false
+local position = nil
+local heading = 0 --0 (North, -z), 1 (West, -x), 2 (South +z), 3 (East, +x)
 
-function initializePosition(x, y, z)
+TurtleMovement = {}
+
+function TurtleMovement.initializePosition(x, y, z)
     position = vector.new(x, y, z)
     initialized = true
 end
 
-function setHeading(dir)
+function TurtleMovement.setHeading(dir)
     heading = dir
 end
 
-function turnLeft()
+function TurtleMovement.getPosition()
+    return position
+end
+
+function TurtleMovement.getHeading()
+    return heading
+end
+
+function TurtleMovement.isInitialized()
+    return initialized
+end
+
+function TurtleMovement.turnLeft()
     turtle.turnLeft()
     heading = ((heading - 1) + 4) % 4
 end
 
-function turnRight()
+function TurtleMovement.turnRight()
     turtle.turnRight()
     heading = ((heading + 1) % 4)
 end
 
-function forward()
+function TurtleMovement.forward()
     local didMove = turtle.forward()
     if(initialized) then
         if(didMove) then
@@ -49,7 +63,7 @@ function forward()
     end
 end
 
-function back()
+function TurtleMovement.back()
     local didMove = turtle.back()
     if(initialized) then
         if(didMove) then
@@ -78,7 +92,7 @@ function back()
     end
 end
 
-function up()
+function TurtleMovement.up()
     local didMove = turtle.up()
     if(initialized) then
         if(didMove) then
@@ -95,7 +109,7 @@ function up()
     end
 end
     
-function down()
+function TurtleMovement.down()
     local didMove = turtle.down()
     if(initialized) then
         if(didMove) then
@@ -111,3 +125,5 @@ function down()
         print("turtlePositionTrackingAPI.down(): Error, Uninitialized")
     end
 end
+
+return TurtleMovement
