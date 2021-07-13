@@ -2,6 +2,7 @@ local args = {...}
 local serverURL = args[4] == nil and "localhost:8080" or args[4]
 local turtleMovement = require("turtlePositionTrackingAPI") 
 local ws = nil
+local timer = nil
 
 if(args[3] ~= nil) then
     print(args[1] .. " " .. args[2] .. " " .. args[3])

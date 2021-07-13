@@ -4,6 +4,7 @@
 local initialized = false
 local position = nil
 local heading = 0 --0 (North, -z), 1 (West, -x), 2 (South +z), 3 (East, +x)
+local autoRefuel = true
 
 TurtleMovement = {}
 
@@ -39,7 +40,7 @@ function TurtleMovement.turnRight()
 end
 
 function TurtleMovement.forward()
-    local didMove = turtle.forward()
+    local didMove, reason = turtle.forward()
     if(initialized) then
         if(didMove) then
             if(heading == 0) then
@@ -52,10 +53,10 @@ function TurtleMovement.forward()
                 position.x = position.x + 1
             end
         else
-            if(turtle.detect()) then
-                print("turtlePositionTrackingAPI.forward(): Movement failed due to obstructed path")
-            else
-                print("turtlePositionTrackingAPI.forward(): Movement failed for unknown reason")
+            print("turtlePositionTrackingAPI.forward(): " .. reason)
+            if(reason == "Out of fuel" and autoRefuel) then
+                turtle.refuel()
+                TurtleMovement.forward()
             end
         end
     else 
@@ -64,7 +65,7 @@ function TurtleMovement.forward()
 end
 
 function TurtleMovement.back()
-    local didMove = turtle.back()
+    local didMove, reason = turtle.back()
     if(initialized) then
         if(didMove) then
             if(heading == 0) then
@@ -77,15 +78,11 @@ function TurtleMovement.back()
                 position.x = position.x - 1
             end
         else
-            turtle.turnLeft()
-            turtle.turnLeft()
-            if(turtle.detect()) then
-                print("turtlePositionTrackingAPI.back(): Movement failed due to obstructed path")
-            else
-                print("turtlePositionTrackingAPI.back(): Movement failed for unknown reason")
+            print("turtlePositionTrackingAPI.forward(): " .. reason)
+            if(reason == "Out of fuel" and autoRefuel) then
+                turtle.refuel()
+                TurtleMovement.back()
             end
-            turtle.turnLeft()
-            turtle.turnLeft()
         end
     else 
         print("turtlePositionTrackingAPI.back(): Error, Uninitialized")
@@ -93,15 +90,15 @@ function TurtleMovement.back()
 end
 
 function TurtleMovement.up()
-    local didMove = turtle.up()
+    local didMove, reason = turtle.up()
     if(initialized) then
         if(didMove) then
             position.y = position.y + 1
         else
-            if(turtle.detectUp()) then
-                print("turtlePositionTrackingAPI.up(): Movement failed due to obstructed path")
-            else
-                print("turtlePositionTrackingAPI.up(): Movement failed for unknown reason")
+            print("turtlePositionTrackingAPI.forward(): " .. reason)
+            if(reason == "Out of fuel" and autoRefuel) then
+                turtle.refuel()
+                TurtleMovement.up()
             end
         end
     else 
@@ -110,19 +107,19 @@ function TurtleMovement.up()
 end
     
 function TurtleMovement.down()
-    local didMove = turtle.down()
+    local didMove, reason = turtle.down()
     if(initialized) then
         if(didMove) then
             position.y = position.y + 1
         else
-            if(turtle.detectDown()) then
-                print("turtlePositionTrackingAPI.down(): Movement failed due to obstructed path")
-            else
-                print("turtlePositionTrackingAPI.down(): Movement failed for unknown reason")
-            end
+            print("turtlePositionTrackingAPI.forward(): " .. reason)
         end
     else
         print("turtlePositionTrackingAPI.down(): Error, Uninitialized")
+        if(reason == "Out of fuel" and autoRefuel) then
+            turtle.refuel()
+            TurtleMovement.down()
+        end
     end
 end
 
