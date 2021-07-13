@@ -1,5 +1,5 @@
-import * as THREE from '../node_modules/three/src/Three.js';
-import {OrbitControls as OrbitControls} from '../node_modules/three/examples/jsm/controls/OrbitControls.js';
+import * as THREE from '../node_modules/three/src/three.js';
+import { OrbitControls } from '../node_modules/three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoader.js';
 
 const scene = new THREE.Scene();
@@ -11,8 +11,7 @@ renderer.physicallyCorrectLights = true;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-
-document.body.appendChild(renderer.domElement);
+document.getElementById('main-body').appendChild(renderer.domElement);
 
 window.addEventListener('resize', () => {
 	camera.aspect = window.innerWidth / window.innerHeight;
@@ -115,7 +114,7 @@ async function getTurtles() {
 		let findTurtle = turtles.find(turtle => turtle.turtleID == data.id)
 		console.log(findTurtle);
 		if(findTurtle != undefined) {
-			findTurtle.rotation.y = (4 - data.dir) * (Math.PI / 2);
+			findTurtle.rotation.y = (data.dir) * (Math.PI / 2);
 			findTurtle.position.set(data.position.x, data.position.y, data.position.z);
 		}
 	});

@@ -30,12 +30,12 @@ end
 
 function TurtleMovement.turnLeft()
     turtle.turnLeft()
-    heading = ((heading - 1) + 4) % 4
+    heading = ((heading + 1) + 4) % 4
 end
 
 function TurtleMovement.turnRight()
     turtle.turnRight()
-    heading = ((heading + 1) % 4)
+    heading = ((heading - 1) % 4)
 end
 
 function TurtleMovement.forward()

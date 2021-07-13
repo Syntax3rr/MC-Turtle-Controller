@@ -30,7 +30,7 @@ class turtle {
 
         this.#websocketHandler();
 
-        this.cmdQueue.push("getPos");
+        this.cmdQueue.push("getData");
 
         let superThis = this;
         this.eventBus.once('ready', () => {superThis.mainClass.eventBus.emit('turtleListUpdate');});
