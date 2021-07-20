@@ -11,7 +11,7 @@ renderer.physicallyCorrectLights = true;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-document.getElementById('main-body').appendChild(renderer.domElement);
+document.getElementById('threeJSRenderer').appendChild(renderer.domElement);
 
 window.addEventListener('resize', () => {
 	camera.aspect = window.innerWidth / window.innerHeight;

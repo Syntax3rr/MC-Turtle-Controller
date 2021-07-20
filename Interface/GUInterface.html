@@ -14,72 +14,88 @@
             <script type="text/javascript" src="GUIWindow.js"></script>
         </div> 
         <div id="main-body">
-            <script type="module" src="ThreeJSRenderer.js"></script>
-            <button class="menu-btn" id="inv-btn"></button>
+            <div id="threeJSRenderer">
+                <script type="module" src="ThreeJSRenderer.js"></script>
+            </div>
+            
             <!--Turtle Menu + Switching-->
             <div id="turtleDisplay">
                 <button class="action-btn" id="prev-turtle"></button>
                 <button class="action-btn" id="next-turtle"></button>
             </div>
+
             <!--Inventory-->
-            <div class="menu-div" id="inventory">
-                <!--Inventory Slots-->
-                <div id="inv-slots">
-                    <button id="0"></button>
-                    <button id="1"></button>
-                    <button id="2"></button>
-                    <button id="3"></button>
-                    <button id="4"></button>
-                    <button id="5"></button>
-                    <button id="6"></button>
-                    <button id="7"></button>
-                    <button id="8"></button>
-                </div>
-                <!--Inventory Action Menu-->
-                <div class="menu-div" id="inv-action-menu">
-                    <!--Drop-->
-                    <button class="menu-btn" id="drop-btn"></button>    
-                    <div class="menu-div" id="drop-menu">
-                        <button class="left-action-btn" id="drop-less"></button>
-                        <button class="right-action-btn" id="drop-more"></button>
-                        <button class="up-action-btn" id="drop-up"></button>
-                        <button class="down-action-btn" id="drop-down"></button>
-                        <button class="fwd-action-btn" id="drop-fwd"></button>
+            <div class="menu-div inventory">
+                <button class="menu-btn inventory"></button>
+                <div class="menu-content inventory">
+                    <!--Inventory Slots-->
+                    <div id="inv-slots">
+                        <button class="inv-slot" id="0"></button>
+                        <button class="inv-slot" id="1"></button>
+                        <button class="inv-slot" id="2"></button>
+                        <button class="inv-slot" id="3"></button>
+                        <button class="inv-slot" id="4"></button>
+                        <button class="inv-slot" id="5"></button>
+                        <button class="inv-slot" id="6"></button>
+                        <button class="inv-slot" id="7"></button>
+                        <button class="inv-slot" id="8"></button>
                     </div>
-                    <!--Suck-->
-                    <button class="menu-btn" id="suck-btn"></button>    
-                    <div class="menu-div" id="suck-menu">
-                        <button class="left-action-btn" id="suck-less"></button>
-                        <button class="right-action-btn" id="suck-more"></button>
-                        <button class="up-action-btn" id="suck-up"></button>
-                        <button class="down-action-btn" id="suck-down"></button>
-                        <button class="fwd-action-btn" id="suck-fwd"></button>
+                    <!--Inventory Action Menu-->
+                    <div class="menu-div inv-action">
+                        <button class="menu-btn inv-action"></button>
+                        <div class="menu-content inv-action">
+                            <!--Drop-->
+                            <div class="menu-div drop">
+                                <button class="menu-btn drop"></button>
+                                <div class="menu-content drop">
+                                    <button class="action-btn left drop"></button> <!--Drop Less-->
+                                    <button class="action-btn right drop"></button> <!--Drop More-->
+                                    <button class="action-btn up drop"></button>  <!--Drop Up-->
+                                    <button class="action-btn down drop"></button>  <!--Drop Down-->
+                                    <button class="action-btn fwd drop"></button> <!--Drop Forward-->
+                                </div>
+                            </div>
+                            <!--Suck-->
+                            <div class="menu-div suck">
+                                <button class="menu-btn suck"></button>    
+                                <div class="menu-content suck">
+                                    <button class="action-btn left suck"></button> <!--Suck Less-->
+                                    <button class="action-btn right suck"></button> <!--Suck More-->
+                                    <button class="action-btn up suck"></button> <!--Suck Up-->
+                                    <button class="action-btn down suck"></button> <!--Suck Down-->
+                                    <button class="action-btn fwd suck"></button> <!--Suck Fwd-->
+                                </div>
+                            </div>
+                            <!--Equip-->
+                            <button class="action-btn left equip"></button> <!--Equip Left-->
+                            <button class="action-btn right equip"></button> <!--Equip Right-->
+                            <!--Craft-->
+                            <button class="action-btn craft"></button>
+                        </div>
                     </div>
-                    <!--Equip-->
-                    <button class="left-action-btn" id="equip-left"></button>
-                    <button class="right-action-btn" id="equip-right"></button>
-                    <!--Craft-->
-                    <button class="action-btn" id="craft-btn"></button>
-                </div>
-            </div> 
+                </div> 
+            </div>
+            
             <!--Movement Buttons-->
-            <button id="move-up"></button>
-            <button id="move-down"></button>
-            <button id="move-fwd"></button>
-            <button id="move-back"></button>
-            <button id="turn-left"></button>
-            <button id="turn-right"></button>
+            <button class="move-btn" id="move-up"></button>
+            <button class="move-btn" id="move-down"></button>
+            <button class="move-btn" id="move-fwd"></button>
+            <button class="move-btn" id="move-back"></button>
+            <button class="move-btn" id="turn-left"></button>
+            <button class="move-btn" id="turn-right"></button>
             <!--General Action Menu-->
-            <button class="menu-btn" id="ctrls-menu-btn"></button>
-            <div class="menu-div" id="ctrls-menu">
-                <!--Action Buttons-->
-                <button class="up-action-btn" id="attk-up"></button>
-                <button class="down-action-btn" id="attk-down"></button>
-                <button class="fwd-action-btn" id="attk-fwd"></button>
-                <button class="up-action-btn" id="mine-up"></button>
-                <button class="down-action-btn" id="mine-down"></button>
-                <button class="fwd-action-btn" id="mine-fwd"></button>
-                <button class="action-btn" id="re-inspect"></button>
+            <div class="menu-div actn-ctrls">
+                <button class="menu-btn actn-ctrls"></button>
+                <div class="menu-content actn-ctrls">
+                    <!--Action Buttons-->
+                    <button class="action-btn up attack"></button>
+                    <button class="action-btn down attack"></button>
+                    <button class="action-btn fwd attack"></button>
+                    <button class="action-btn up mine"></button>
+                    <button class="action-btn down mine"></button>
+                    <button class="action-btn fwd mine"></button>
+                    <button class="action-btn reinspect"></button>
+                </div>
             </div>
         </div>
     </body>
