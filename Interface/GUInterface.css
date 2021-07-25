@@ -8,34 +8,33 @@ html, body {
 #titlebar {
     position: fixed;
     z-index: 10;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 30px;
+    width: 100vw;
+    height: 4vh;
+    background-color: #444;
     -webkit-user-select: none;
     -webkit-app-region: drag;
-    background-color: #444;
+    
     
 }
 
 #titlebar p {
+    font-size: 0.8rem;
+    margin-top:0.5rem;
     color:#ddd;
-    font-size: 12px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     text-align: center;
-    margin-top:9px;
 }
 
 .titlebar-button {
     position: absolute;
-    top: 0px;
-    height: 30px;
-    width: 45px;
-    -webkit-app-region: no-drag;
-    background-color: #444;
+    top: 0vw;
+    height: 4vh;
+    width: 3.5vw;
+    font-size: 1.2rem;
+    border: none;  
     color:#ddd;
-    font-size: 18px;
-    border: none;    
+    background-color: #444;
+    -webkit-app-region: no-drag;
 }
 
 .titlebar-button:hover {
@@ -51,7 +50,7 @@ html, body {
 }
 
 #close {
-    right: 0px;
+    right: 0vw;
 }
 
 #close:hover {
@@ -59,22 +58,21 @@ html, body {
 }
 
 #maximize {
-    right: 45px;
+    right: 3.5vw;
 }
 
 #minimize {
-    right: 90px;
-    padding-bottom: 2px;
+    right: 7vw;
+    padding-bottom: 0.2rem;
 }
 
 /* INTERFACE */
 #main-body {
-    position:fixed;
+    position: fixed;
     z-index: 0;
-    left: 0px;
-    right: 0px;
-    top: 30px;
-    bottom: 0px;
+    top: 4vh;
+    width: 100vw;
+    height: 96vh;
 }
 
 #threeJSRenderer {
@@ -86,40 +84,56 @@ html, body {
 .action-btn {
     position: relative;
     z-index: 2;
-    width: 30px;
-    height :30px;
+    width: 4vh;
+    height :4vh;
 }
 
 .move-btn {
     position: relative;
     z-index: 2;
-    width: 20px;
-    height: 20px;
-}
-
-.inv-slot {
-    position: relative;
-    z-index: 2;
-    width: 10px;
-    height: 10px;
+    width: 3vh;
+    height: 3vh;
 }
 
 .menu-div {
-    position: relative;
-    z-index: 1;  
+    position: relative; 
     display: inline-block;
 }
 
 .menu-content {
     position: absolute;
-    z-index: 2;
+    z-index: 1;
     display: none;
-    left: 10px;
-    top: 30px;
 }
 
 .menu-div:hover > .menu-content {
     display: block;
 }
 
+#turtleDisplay {
+    position: relative;
+    top: 0vh;
+    width: 100vw;
+    height: 5vh;
+    display: block;
+    background-color: #444;
+    opacity: 0.8;
+}
 
+.inv-slot-table {
+    position: relative;
+    display: block;
+}
+
+.inv-slot-row {
+    position: relative;
+    display: block;
+    background-color: green;
+}
+
+.inv-slot {
+    position: relative;
+    display: inline-block;
+    width: 3vh;
+    height: 3vh;
+}
