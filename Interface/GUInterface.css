@@ -80,21 +80,6 @@ html, body {
     z-index: -1;
 }
 
-.menu-btn,
-.action-btn {
-    position: relative;
-    z-index: 2;
-    width: 4vh;
-    height :4vh;
-}
-
-.move-btn {
-    position: relative;
-    z-index: 2;
-    width: 3vh;
-    height: 3vh;
-}
-
 .menu-div {
     position: relative; 
     display: inline-block;
@@ -110,16 +95,60 @@ html, body {
     display: block;
 }
 
-#turtleDisplay {
+.menu-btn,
+.action-btn {
     position: relative;
-    top: 0vh;
-    width: 100vw;
-    height: 5vh;
-    display: block;
-    background-color: #444;
-    opacity: 0.8;
+    z-index: 2;
+    width: 4vh;
+    height :4vh;
 }
 
+/* Movement Controls */
+#movement > div {
+    position: relative;
+    display: inline-block;
+    padding: 0.5vh;
+}
+
+#movement button {
+    position: relative;
+    z-index: 2;
+    width: 3vh;
+    height: 3vh;
+    margin-top: 0.5vh;
+    margin-bottom: 0.5vh;
+}
+
+#move-col-1 button {
+    display: block;
+}
+
+#move-col-2 button {
+    display: inline-block;
+}
+
+#move-row-1 > #move-fwd {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Turtle Display */
+#sidebar {
+    position: relative;
+    float: left;
+    width: 20vw;
+    height: 100vh;
+    display: block;
+    background-color: #444;
+    opacity: 0.9;
+}
+
+#turtleDisplay {
+    height: 25vh;
+    background-color: #222
+}
+
+/* Inventory */
 .inv-slot-table {
     position: relative;
     display: block;
@@ -128,7 +157,7 @@ html, body {
 .inv-slot-row {
     position: relative;
     display: block;
-    background-color: green;
+    min-width: 11vh;
 }
 
 .inv-slot {
