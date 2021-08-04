@@ -143,10 +143,30 @@ html, body {
     opacity: 0.9;
 }
 
-#turtleDisplay {
-    height: 25vh;
-    background-color: #222
+#turtleListDisplay {
+    height: 5vh;
+    background-color: #222;
+    display: flex;
+    align-items: center;
 }
+
+#turtleListDisplay > div {
+    height: 4vh;
+    width: 95%;
+    top: 1vh;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+#selected-turtle {
+    align-self: center;
+}
+
+#turtleListDisplay > div > p {
+    margin: 0 auto;
+}
+
 
 /* Inventory */
 .inv-slot-table {
